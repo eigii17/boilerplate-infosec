@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const helmet = require('helmet');
 
 
 
@@ -11,9 +12,7 @@ const app = express();
 
 
 
-
-
-
+app.use(helmet.hidePoweredBy());
 
 
 
@@ -51,11 +50,9 @@ const app = express();
 
 module.exports = app;
 const api = require('./server.js');
-const helmet = require('helmet');
 app.use(express.static('public'));
 app.disable('strict-transport-security');
 app.use('/_api', api);
-app.use(helmet.hidePoweredBy());
 app.get("/", function (request, response) {
   response.sendFile(__dirname + '/views/index.html');
 });
